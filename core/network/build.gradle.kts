@@ -45,11 +45,17 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
     // Kotlinx serialization
     implementation(libs.kotlinx.serialization.json)
+
     // Retrofit and kotlinx serialization converter
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization)
+
+    //Paging
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
 
     //Dagger Hilt
     implementation(libs.dagger.hilt)
