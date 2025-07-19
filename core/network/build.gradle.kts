@@ -59,9 +59,22 @@ dependencies {
 
     //Dagger Hilt
     implementation(libs.dagger.hilt)
+    implementation(libs.androidx.paging.testing.android)
     ksp(libs.dagger.hilt.compiler)
 
     testImplementation(libs.junit)
+    testImplementation(libs.paging.common)
+
+    //Mockk
+    testImplementation(libs.mockk)
+    testImplementation (libs.mockk.android)
+    testImplementation (libs.mockk.agent)
+
+    // webserver
+    testImplementation(libs.okhttp3.mockwebserver)
+    // Coroutine test
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.assertj.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
