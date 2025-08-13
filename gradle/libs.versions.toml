@@ -35,6 +35,11 @@ lifecycleViewmodelNav3 = "1.0.0-alpha01"
 kotlinxSerializationCore = "1.8.1"
 material3AdaptiveNav3 = "1.0.0-SNAPSHOT"
 uiTooling = "1.8.3"
+androidyoutubeplayer = "12.1.2"
+
+## Turbine
+turbine = "1.2.1"
+constraintlayout = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -80,6 +85,12 @@ coil-network = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = 
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+# Turbine
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+# ConstraintLayout
+constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayout" }
+# Youtube Player
+androidyoutubeplayer-core = {module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "androidyoutubeplayer"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
