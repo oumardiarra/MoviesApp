@@ -6,7 +6,7 @@ import com.example.model.Movie
 import com.example.network.model.toMovie
 import com.example.network.service.MovieService
 
-internal class DiscoverMoviesPagingSource(
+class DiscoverMoviesPagingSource(
     private val movieService: MovieService,
 ) : PagingSource<Int, Movie>() {
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {

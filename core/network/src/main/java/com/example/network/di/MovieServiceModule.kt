@@ -6,12 +6,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,11 +27,14 @@ class NetworkServiceModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        val json = Json{
+            ignoreUnknownKeys = true
+        }
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://api.themoviedb.org/")
             .addConverterFactory(
-                /* factory = */ Json.asConverterFactory(
+                /* factory = */ json.asConverterFactory(
                     contentType = "application/json; charset=UTF8".toMediaType()
                 )
             )

@@ -1,6 +1,8 @@
 package com.example.network.paging
 
-import androidx.paging.PagingSource
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource.LoadResult
+import androidx.paging.testing.TestPager
 import com.example.model.Movie
 import com.example.network.model.DiscoverMoviesDto
 import com.example.network.model.MovieDto
@@ -47,58 +49,80 @@ class DiscoverMoviesPagingSourceTest {
             every { code() } returns 500
         }
         coEvery { movieService.discoverMovies(page = any()) }.throws(mockedError)
+        val discoverPagingSource = DiscoverMoviesPagingSource(movieService = movieService)
+        val pager = TestPager(config = PagingConfig(pageSize = 50), discoverPagingSource)
 
         // When
-        val result = discoverMoviesPagingSource.load(
-            PagingSource.LoadParams.Refresh(
-                key = 0,
-                loadSize = 1,
-                placeholdersEnabled = false,
-            )
-        )
+        val result = pager.refresh()
 
         // Then
-        assertThat(result).isEqualTo(PagingSource.LoadResult.Error<Int, Movie>(mockedError))
+        assertThat(result).isEqualTo(LoadResult.Error<Int, Movie>(mockedError))
+        assertThat(pager.getLastLoadedPage()).isNull()
     }
 
     @Test
     fun `load - when service returns movies - should return movies`() = runTest {
         // Given
-        val moviesDto =
-            coEvery { movieService.discoverMovies(page = any()) }.returns(
-                DiscoverMoviesDto(
-                    page = 1,
-                    results = listOf(
-                        MovieDto(
-                            id = 1,
-                            title = "title",
-                            overview = "overview",
-                            averageVote = 0.0,
-                            moviePosterUrl = "moviePosterUrl",
-                            totalVotes = 0,
-                            releaseDate = "releaseDate"
-                        )
+        coEvery { movieService.discoverMovies(page = any()) }.returns(
+            DiscoverMoviesDto(
+                page = 1,
+                results = listOf(
+                    MovieDto(
+                        id = 1,
+                        title = "title",
+                        overview = "overview",
+                        averageVote = 0.0,
+                        moviePosterUrl = "moviePosterUrl",
+                        totalVotes = 0,
+                        releaseDate = "releaseDate"
                     )
                 )
-            )
+            ),
+        )
+        val discoverPagingSource = DiscoverMoviesPagingSource(movieService = movieService)
+        val pager = TestPager(config = PagingConfig(pageSize = 50), discoverPagingSource)
 
         // When
-        val result = discoverMoviesPagingSource.load(
-            PagingSource.LoadParams.Refresh(
-                key = 0,
-                loadSize = 1,
-                placeholdersEnabled = false,
-            )
-        )
+        val result = pager.refresh() as LoadResult.Page
 
         // Then
-        assertThat(result).isEqualTo(
-            PagingSource.LoadResult.Page(
-                prevKey = null,
-                nextKey = 2,
-                data = listOf(
-                    Movie(
+        assertThat(result.data)
+            .containsExactly(
+                Movie(
+                    id = 1,
+                    title = "title",
+                    overview = "overview",
+                    averageVote = 0.0,
+                    moviePosterUrl = "moviePosterUrl",
+                    totalVotes = 0,
+                    releaseDate = "releaseDate"
+                )
+            )
+    }
+
+    @Test
+    fun `load - when service returns consecutive movies - should return movies`() = runTest {
+        // Given
+        coEvery { movieService.discoverMovies(page = any()) }.returnsMany(
+            DiscoverMoviesDto(
+                page = 1,
+                results = listOf(
+                    MovieDto(
                         id = 1,
+                        title = "title",
+                        overview = "overview",
+                        averageVote = 0.0,
+                        moviePosterUrl = "moviePosterUrl",
+                        totalVotes = 0,
+                        releaseDate = "releaseDate"
+                    )
+                )
+            ),
+            DiscoverMoviesDto(
+                page = 2,
+                results = listOf(
+                    MovieDto(
+                        id = 2,
                         title = "title",
                         overview = "overview",
                         averageVote = 0.0,
@@ -109,5 +133,27 @@ class DiscoverMoviesPagingSourceTest {
                 )
             )
         )
+        val discoverPagingSource = DiscoverMoviesPagingSource(movieService = movieService)
+        val pager = TestPager(config = PagingConfig(pageSize = 50), discoverPagingSource)
+
+        // When
+        val result = with(pager) {
+            refresh()
+            append()
+        } as LoadResult.Page
+
+        // Then
+        assertThat(result.data)
+            .containsExactly(
+                Movie(
+                    id = 2,
+                    title = "title",
+                    overview = "overview",
+                    averageVote = 0.0,
+                    moviePosterUrl = "moviePosterUrl",
+                    totalVotes = 0,
+                    releaseDate = "releaseDate"
+                ),
+            )
     }
 }
