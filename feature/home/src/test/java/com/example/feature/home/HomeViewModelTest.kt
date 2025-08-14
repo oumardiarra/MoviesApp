@@ -8,10 +8,8 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 

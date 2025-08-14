@@ -1,23 +1,19 @@
 package com.example.feature.details
 
-import android.net.http.HttpException
 import app.cash.turbine.test
 import com.example.domain.GetMovieDetailsUseCase
 import com.example.model.MovieDetails
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
-import java.lang.Exception
 
 class MovieDetailsViewModelTest {
 
