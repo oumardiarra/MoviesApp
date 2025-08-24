@@ -102,8 +102,8 @@ class MovieDetailsRepositoryImplTest {
                         voteCount = 5,
                         voteAverage = 55.59,
                         releaseDate = "releaseDate",
-                        backdropPath = "backdropPath",
-                        posterPath = "posterPath",
+                        backdropPath = "https://image.tmdb.org/t/p/w500/backdropPath",
+                        posterPath = "https://image.tmdb.org/t/p/w500/posterPath",
                         movieGenres = listOf(
                             MovieDetails.Genres(
                                 name = "name"
@@ -114,7 +114,7 @@ class MovieDetailsRepositoryImplTest {
                                 MovieDetails.Credits.CreditsCast(
                                     name = "name",
                                     character = "character",
-                                    profilePath = "profilePath"
+                                    profilePath = "https://image.tmdb.org/t/p/w500/profilePath"
                                 )
                             ),
                         ),

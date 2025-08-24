@@ -50,7 +50,7 @@ internal fun MovieCastSection(
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
-                            .data("https://image.tmdb.org/t/p/w500/${posterPath}")
+                            .data(posterPath)
                             .crossfade(true)
                             .build(),
                         contentDescription = null,

@@ -110,7 +110,7 @@ fun HomeScreenScreenContent(
                     onClick = { onNavigateToMovieDetails(movieItem.id) }
                 ) {
                     AsyncImage(
-                        model = "https://image.tmdb.org/t/p/w500/${movieItem.moviePosterUrl}",
+                        model = movieItem.moviePosterUrl,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -151,7 +151,7 @@ fun HomeScreenScreenContentPreview() {
             title = "title",
             overview = "overview",
             averageVote = 0.0,
-            moviePosterUrl = "moviePosterUrl",
+            moviePosterUrl = "https://image.tmdb.org/t/p/w500/yvirUYrva23IudARHn3mMGVxWqM.jpg",
             totalVotes = 0,
             releaseDate = "releaseDate"
         ),
@@ -160,7 +160,7 @@ fun HomeScreenScreenContentPreview() {
             title = "title",
             overview = "overview",
             averageVote = 0.0,
-            moviePosterUrl = "yvirUYrva23IudARHn3mMGVxWqM.jpg",
+            moviePosterUrl = "https://image.tmdb.org/t/p/w500/yvirUYrva23IudARHn3mMGVxWqM.jpg",
             totalVotes = 0,
             releaseDate = "releaseDate"
         ),
@@ -169,7 +169,7 @@ fun HomeScreenScreenContentPreview() {
             title = "title",
             overview = "overview",
             averageVote = 0.0,
-            moviePosterUrl = "yvirUYrva23IudARHn3mMGVxWqM.jpg",
+            moviePosterUrl = "https://image.tmdb.org/t/p/w500/yvirUYrva23IudARHn3mMGVxWqM.jpg",
             totalVotes = 0,
             releaseDate = "releaseDate"
         )

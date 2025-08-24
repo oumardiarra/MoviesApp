@@ -4,6 +4,8 @@ import com.example.model.MovieDetails
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+private const val IMAGE_PREFIX = "https://image.tmdb.org/t/p/w500/"
+
 @Serializable
 data class MovieDetailsDto(
     val title: String,
@@ -52,8 +54,8 @@ fun MovieDetailsDto.toMovieDetails() = MovieDetails(
     voteAverage = voteAverage,
     voteCount = voteCount,
     releaseDate = releaseDate,
-    backdropPath = backdropPath,
-    posterPath = posterPath,
+    backdropPath = IMAGE_PREFIX + backdropPath,
+    posterPath = IMAGE_PREFIX + posterPath,
     movieGenres = movieGenres.map {
         MovieDetails.Genres(
             name = it.name,
@@ -64,7 +66,7 @@ fun MovieDetailsDto.toMovieDetails() = MovieDetails(
             MovieDetails.Credits.CreditsCast(
                 name = it.name,
                 character = it.character,
-                profilePath = it.profilePath,
+                profilePath = IMAGE_PREFIX + it.profilePath,
             )
         }
     ),

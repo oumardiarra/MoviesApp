@@ -93,7 +93,7 @@ class DiscoverMoviesPagingSourceTest {
                     title = "title",
                     overview = "overview",
                     averageVote = 0.0,
-                    moviePosterUrl = "moviePosterUrl",
+                    moviePosterUrl = "https://image.tmdb.org/t/p/w500/moviePosterUrl",
                     totalVotes = 0,
                     releaseDate = "releaseDate"
                 )
@@ -150,7 +150,7 @@ class DiscoverMoviesPagingSourceTest {
                     title = "title",
                     overview = "overview",
                     averageVote = 0.0,
-                    moviePosterUrl = "moviePosterUrl",
+                    moviePosterUrl = "https://image.tmdb.org/t/p/w500/moviePosterUrl",
                     totalVotes = 0,
                     releaseDate = "releaseDate"
                 ),

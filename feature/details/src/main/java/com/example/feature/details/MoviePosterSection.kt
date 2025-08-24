@@ -80,7 +80,7 @@ internal fun MoviePosterSection(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
-                    .data("https://image.tmdb.org/t/p/w500/${movieDetails.backdropPath}")
+                    .data(movieDetails.backdropPath)
                     .crossfade(true)
                     .build(),
                 contentDescription = null,

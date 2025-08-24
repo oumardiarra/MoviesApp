@@ -5,7 +5,7 @@ import com.example.model.Movie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
+private const val POSTER_PREFIX = "https://image.tmdb.org/t/p/w500"
 @Serializable
 data class MovieDto(
     val id: Int,
@@ -26,7 +26,7 @@ fun MovieDto.toMovie() = Movie(
     title = title,
     overview = overview,
     averageVote = averageVote,
-    moviePosterUrl = moviePosterUrl,
+    moviePosterUrl = POSTER_PREFIX + moviePosterUrl,
     totalVotes = totalVotes,
     releaseDate = releaseDate,
 )
