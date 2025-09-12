@@ -1,4 +1,10 @@
 package com.example.movieapp.navigation
 
-data object HomeMovie
-data class MovieDetails(val movieId: Int)
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object HomeMovie : NavKey
+
+@Serializable
+data class MovieDetails(val movieId: Int) : NavKey

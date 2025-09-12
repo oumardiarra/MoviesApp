@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -72,7 +73,6 @@ fun MovieDetailsScreenContent(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(bottom = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -81,15 +81,17 @@ fun MovieDetailsScreenContent(
         MoviePosterSection(
             movieDetails = movieDetails,
             onNavigateBack = onNavigateBack,
+            modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier.height(28.dp))
+        Spacer(Modifier.height(28.dp))
         MovieDescriptionSection(
             movieDetails = movieDetails,
-            modifier = modifier,
+            modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier.height(16.dp))
+        Spacer(Modifier.height(16.dp))
         MovieCastSection(
             cast = movieDetails.credits.cast,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
