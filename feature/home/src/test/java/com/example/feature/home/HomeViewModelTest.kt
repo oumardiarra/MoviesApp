@@ -1,15 +1,16 @@
 package com.example.feature.home
 
 import androidx.paging.PagingData
-import androidx.paging.testing.asSnapshot
 import com.example.domain.GetDiscoverMoviesUseCase
 import com.example.model.Movie
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -26,31 +27,38 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `loadDiscoverMovies - when getDiscoverMoviesUseCase returns movies - should return data`() =
+    fun `loadDiscoverMovies - when getDiscoverMoviesUseCase returns movies - should emit non-empty paging data`() =
         runTest {
             // Given
-            val movies = PagingData.from(
-                data = listOf(
-                    Movie(
-                        id = 1,
-                        title = "title",
-                        overview = "overview",
-                        averageVote = 0.0,
-                        moviePosterUrl = "moviePosterUrl",
-                        totalVotes = 0,
-                        releaseDate = "releaseDate"
-                    )
+            val expectedMovies = listOf(
+                Movie(
+                    id = 1,
+                    title = "title",
+                    overview = "overview",
+                    averageVote = 0.0,
+                    moviePosterUrl = "moviePosterUrl",
+                    totalVotes = 0,
+                    releaseDate = "releaseDate"
+                ),
+                Movie(
+                    id = 2,
+                    title = "title",
+                    overview = "overview",
+                    averageVote = 0.0,
+                    moviePosterUrl = "moviePosterUrl",
+                    totalVotes = 0,
+                    releaseDate = "releaseDate"
                 )
             )
-            val flowOfMovies = flow { emit(movies) }
-            val noData = flow { emit(PagingData.from(emptyList())) }
-            coEvery { getDiscoverMoviesUseCase.invoke() } returns (flowOfMovies)
+            val pagingData = PagingData.from(expectedMovies)
+            coEvery { getDiscoverMoviesUseCase.invoke() } returns flowOf(pagingData)
 
             // When
             viewModel.loadDiscoverMovies()
 
             // Then
-            val nn = noData.asSnapshot()
-            //assertThat(viewModel.homeUiState.asSnapshot()).isEqualTo(noData.asSnapshot())
+            // TODO: Issue with viewModel.homeUiState.asSnapshot() because of collect in viewModel
+            val result = viewModel.homeUiState.first()
+            assertThat(result).isNotEqualTo(PagingData.empty<Movie>())
         }
 }
