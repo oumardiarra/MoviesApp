@@ -25,7 +25,8 @@ class HomeViewModel @Inject constructor(
         getDiscoverMovieUsecase
             .invoke()
             .distinctUntilChanged()
-            .cachedIn(viewModelScope).collect {
+            .cachedIn(viewModelScope)
+            .collect {
                 _homeUiState.value = it
             }
     }
