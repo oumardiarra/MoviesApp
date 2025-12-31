@@ -9,5 +9,5 @@ import javax.inject.Inject
 class GetDiscoverMoviesUseCase @Inject constructor(
     private val homeRepository: HomeRepository,
 ) {
-    suspend operator fun invoke(): Flow<PagingData<Movie>> = homeRepository.getDiscoverMovies()
+    operator fun invoke(): Flow<PagingData<Movie>> = homeRepository.getDiscoverMovies()
 }
