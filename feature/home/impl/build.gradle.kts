@@ -1,23 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.hilt.android)
-    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
-    namespace = "com.example.movieapp"
+    namespace = "com.example.feature.home.impl"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.movieapp"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,16 +31,23 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
     implementation(project(":feature:home:api"))
-    implementation(project(":feature:home:impl"))
-    implementation(project(":feature:details:impl"))
+    implementation(project(":feature:details:api"))
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+
+    // Dagger
+    implementation(libs.dagger.hilt)
+    debugImplementation(libs.ui.tooling)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -55,21 +56,26 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // Dagger
-    implementation(libs.dagger.hilt)
+    //Paging
+    implementation(libs.androidx.paging.common.android)
+    implementation(libs.paging.compose)
+
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.network)
+
+    //Navigation 3
     implementation(libs.androidx.compose.adaptive.navigation3)
-    ksp(libs.dagger.hilt.compiler)
 
-    // nav3
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.navigation3.runtime)
-   // implementation(libs.androidx.material3.adaptive.navigation3)
-
+    //Mockk
+    testImplementation(libs.mockk)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+    //Coroutine kotlinx-coroutines-test
+    testImplementation(libs.kotlinx.coroutines.test)
+    implementation(libs.androidx.paging.testing.android)
+    testImplementation(libs.assertj.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }
